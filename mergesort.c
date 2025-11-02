@@ -23,23 +23,21 @@ int k = lo;
 	while(i<n1 && j<n2){
 		
 		if (L[i]<=R[j]){
-			arr[k]=L[i];
-			i++;
+			arr[k++]=L[i++];
+			
 		}else{
-		arr[k]=R[j];
-		j++;
+		arr[k++]=R[j++];
+		
 		}
-		k++;
+		
 	}
 	while(i<n1){
-	arr[k]=L[i];
-	i++;
-	k++;	
+	arr[k++]=L[i++];
+		
 	}
 	while(j<n1){
-	arr[k]=R[j];
-	j++;
-	k++;	
+	arr[k++]=R[j++];
+	 	
 	}
 	
 }
