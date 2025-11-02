@@ -1,63 +1,85 @@
 #include <stdio.h>
 
-int a[100], b[100];
+void merge(int arr[] , int lo , int m , int hi){
+	
+int n1 = m-lo+1;
+int n2 = hi-m;
 
-void merge(int lo, int m, int hi);
+int L[n1];
+int R[n2];
 
-void mergesort(int lo, int hi) {
-    if (lo < hi) {
-        int m = (lo + hi) / 2;
-        mergesort(lo, m);
-        mergesort(m + 1, hi);
-        merge(lo, m, hi);
-    }
+for (int i=0 ; i<n1 ; i++){
+	L[i]=arr[lo+i];
+	}	
+	
+for ( int i=0 ; i<n2 ; i++){
+	R[i]=arr[m+1+i];
+	}
+	
+int i = 0;
+int j = 0;
+int k = lo;
+
+	while(i<n1 && j<n2){
+		
+		if (L[i]<=R[j]){
+			arr[k]=L[i];
+			i++;
+		}else{
+		arr[k]=R[j];
+		j++;
+		}
+		k++;
+	}
+	while(i<n1){
+	arr[k]=L[i];
+	i++;
+	k++;	
+	}
+	while(j<n1){
+	arr[k]=R[j];
+	j++;
+	k++;	
+	}
+	
 }
 
-void merge(int lo, int m, int hi) {
-    int i, j, k;
-    for (i = lo; i <= hi; i++) {
-        b[i] = a[i]; 
-    }
-    i = lo;        
-    j = m + 1;     
-    k = lo;        
+void MergeSort(int arr[] , int lo , int hi){
+	
+	if(lo<hi){
+	int m = lo + (hi-lo)/2;
 
-    while (i <= m && j <= hi) { 
-        if (b[i] <= b[j]) a[k++] = b[i++]; 
-        else a[k++] = b[j++]; 
-    }
+	MergeSort(arr , lo , m);
+	MergeSort(arr , m+1 , hi );	
 
-    while (i <= m) { 
-        a[k++] = b[i++]; 
-    }
-    while (j <= hi) { 
-        a[k++] = b[j++]; 
-    }
+	merge(arr,lo,m,hi);
+
+	}	
+
 }
 
 
-int main() {
-    int n, i;
 
-    printf("enter size of the array: ");
-    scanf("%d", &n);
-    
-    printf("enter %d elements:\n", n);
-    for (i = 0; i < n; ++i) {
-        scanf("%d", &a[i]); 
-    }
+int main(){
+int n;
+printf("Enter the number of element: ");
+scanf("%d",&n);
 
-    mergesort(0, n - 1); 
+int arr[n];
 
-    printf("sorted array: ");
-    for (i = 0; i < n; ++i) { 
-        printf("%d ", a[i]); 
-    }
-    printf("\n");
+printf("Enter the elements :");
+for(int i=0;i<n;i++){
+scanf("%d",&arr[i]);	
+}
 
-    // Complexity Output
-    printf("merge sort tc: o(nlogn) all cases\n");
-    printf("merge sort sc: o(n) auxiliary space\n");
+MergeSort(arr,0,n-1);
 
-    return 0; 
+printf("The sorted array is : \n");
+for(int i=0 ;i<n;i++){
+printf("|%d",arr[i]);	
+}
+printf("|");
+
+return 0;
+	
 }
